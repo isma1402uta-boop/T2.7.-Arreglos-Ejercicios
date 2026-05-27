@@ -1,0 +1,70 @@
+Proceso GestionCalificaciones
+    // Definición e inicialización de variables
+    Definir n, i, aprobados, reprobados Como Entero
+    Definir suma, promedio, notas Como Real
+    Definir nombres Como Cadena
+    Definir buscar Como Cadena
+    Definir encontrado Como Logico
+    
+    Dimension nombres [100]
+    Dimension notas[100]
+    
+    suma <- 0
+    aprobados <- 0
+    reprobados <- 0
+    
+    Escribir "Ingrese la cantidad de estudiantes:"
+    Leer n
+    
+    // Ciclo para registrar los datos
+    Para i<-1 Hasta n Hacer
+        Escribir "Ingrese el nombre del estudiante ", i, ":"
+        Leer nombres[i]
+        Escribir "Ingrese la nota del estudiante ", i, ":"
+        Leer notas[i]
+        suma <- suma + notas[i]
+        
+        // Validación de aprobación (nota mínima: 7)
+        Si notas[i] >= 7 Entonces
+            aprobados <- aprobados + 1
+        Sino
+            reprobados <- reprobados + 1
+        FinSi
+    FinPara
+    
+    promedio <- suma / n
+    
+    // Despliegue de resultados estadísticos
+    Escribir ""
+    Escribir "====== REPORTE ESTADISTICO ======"
+    Escribir "Promedio general: ", promedio
+    Escribir "Aprobados: ", aprobados
+    Escribir "Reprobados: ", reprobados
+    Escribir "================================="
+    Escribir ""
+    
+    // Módulo de búsqueda de estudiantes
+    Escribir "Ingrese el nombre del estudiante a buscar:"
+    Leer buscar
+    encontrado <- Falso
+    
+    Para i <- 1 Hasta n Hacer
+        Si nombres[i] = buscar Entonces
+            encontrado <- Verdadero
+            Escribir ""
+            Escribir "--- Estudiante Encontrado ---"
+            Escribir "Nombre: ", nombres[i]
+            Escribir "Nota: ", notas[i]
+            Si notas[i] >= 7 Entonces
+                Escribir "Estado: Aprobado"
+            Sino
+                Escribir "Estado: Reprobado"
+            FinSi
+            Escribir "-----------------------------"
+        FinSi
+    FinPara
+    
+    Si encontrado = Falso Entonces
+        Escribir "El estudiante no se encuentra registrado."
+    FinSi
+FinProceso
