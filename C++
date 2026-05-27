@@ -1,0 +1,96 @@
+    #include <iostream>    
+    #include <string>    
+    using namespace std;    
+         
+    // ── Constante y variables globales ──────────────────────────────────────    
+    const int MAX = 50;    
+    string nombres[MAX];    
+    float  notas[MAX];    
+    int    n = 0;    
+         
+    // ── Módulo 1: Registrar calificaciones ──────────────────────────────────    
+    void registrarCalificaciones() {    
+        cout << "\nIngrese el numero de estudiantes: ";    
+        cin >> n;    
+        cin.ignore();    
+         
+        for (int i = 0; i < n; i++) {    
+            cout << "\nEstudiante " << (i + 1) << ":\n";    
+            cout << "  Nombre : ";    
+            getline(cin, nombres[i]);    
+            cout << "  Nota   : ";    
+            cin  >> notas[i];    
+            cin.ignore();    
+        }    
+        cout << "\n>> Registro completado. Total de estudiantes: " << n << "\n";    
+    }    
+         
+    // ── Módulo 2: Reporte estadístico ────────────────────────────────────────    
+    void mostrarReporte() {    
+        if (n == 0) { cout << ">> Error: No hay estudiantes registrados.\n"; return; }    
+         
+        float suma    = 0.0;    
+        int aprobados = 0, reprobados = 0;    
+         
+        for (int i = 0; i < n; i++) {    
+            suma += notas[i];    
+            if (notas[i] >= 7.0) aprobados++;    
+            else                 reprobados++;    
+        }    
+         
+        cout << "\n====== REPORTE ESTADÍSTICO ======\n";    
+        cout << "  Promedio general : " << suma / n   << "\n";    
+        cout << "  Aprobados        : " << aprobados  << "\n";    
+        cout << "  Reprobados       : " << reprobados << "\n";    
+    }    
+         
+    // ── Módulo 3: Búsqueda secuencial ────────────────────────────────────────    
+    void buscarEstudiante() {    
+        if (n == 0) { cout << ">> Error: No hay estudiantes registrados.\n"; return; }    
+         
+        string buscar;    
+        bool encontrado = false;    
+         
+        cout << "\nIngrese el nombre del estudiante a buscar: ";    
+        cin.ignore();    
+        getline(cin, buscar);    
+         
+        for (int i = 0; i < n; i++) {    
+            if (nombres[i] == buscar) {    
+                string estado = (notas[i] >= 7.0) ? "Aprobado" : "Reprobado";    
+                cout << "\n-- Estudiante encontrado --\n";    
+                cout << "  Nombre : " << nombres[i] << "\n";    
+                cout << "  Nota   : " << notas[i]   << "\n";    
+                cout << "  Estado : " << estado      << "\n";    
+                encontrado = true;    
+                break;    
+            }    
+        }    
+         
+        if (!encontrado)    
+            cout << "\n>> El estudiante \"" << buscar << "\" no se encuentra registrado.\n";    
+    }    
+         
+    // ── Programa principal ───────────────────────────────────────────────────    
+    int main() {    
+        int opcion;    
+        do {    
+            cout << "\n========== MENU PRINCIPAL ==========\n"    
+                 << "  1. Registrar calificaciones\n"    
+                 << "  2. Mostrar reporte estadístico\n"    
+                 << "  3. Buscar estudiante\n"    
+                 << "  0. Salir\n"    
+                 << "Seleccione una opcion: ";    
+            cin >> opcion;    
+         
+            switch (opcion) {    
+                case 1: registrarCalificaciones(); break;    
+                case 2: mostrarReporte();          break;    
+                case 3: buscarEstudiante();        break;    
+                case 0: cout << "Saliendo...\n";   break;    
+                default: cout << ">> Opcion no valida.\n";    
+            }    
+        } while (opcion != 0);    
+         
+        return 0;    
+    }    
